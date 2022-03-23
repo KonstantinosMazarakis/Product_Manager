@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
-    Link
+    Link, useParams
 } from "react-router-dom";
 
 
-const Products = () => {
+const Products = (props) => {
     let [report, setReport] = useState([])
-
-
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/products")
             .then(response => {
-                console.log(response)
                 setReport(response.data.results)
             }).catch(err => {
                 console.log("error 404... no API found." + err)
             })
 
-    }, [])
+    }, [props.formSubmited])
 
     return (
         <div>

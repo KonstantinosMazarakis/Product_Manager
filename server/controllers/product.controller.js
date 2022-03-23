@@ -19,7 +19,7 @@ module.exports.createProduct = (req,res) =>{
 }
 
 
-module.exports.findOneProduct =(req,res) =>{
+module.exports.findOneProduct = (req,res) =>{
     Products.findOne({_id: req.params.id})
         .then(foundProduct =>{
             res.json({results: foundProduct})
@@ -27,3 +27,24 @@ module.exports.findOneProduct =(req,res) =>{
         .catch(err=>res.json({message:"oh no ho no ho no no no", error:err}))
 
 }
+
+module.exports.updateOneProduct = (req,res)=>{
+    Products.findOneAndUpdate(
+        {_id:req.params.id},
+        req.body,
+        {new: true, runValidators: true}
+        )
+            .then(updatedProduct=>{
+                res.json({results: updatedProduct})
+            })
+            .catch(err=>res.json({message:"oh no ho no ho no no no", error:err}))
+    }
+
+
+    module.exports.deleteProduct = (req,res)=>{
+        Products.deleteOne({_id: req.params.id})
+            .then(deletedProduct =>{
+                res.json({results: deletedProduct})
+            })
+            .catch(err=>res.json({message:"oh no ho no ho no no no", error:err}))
+    }
