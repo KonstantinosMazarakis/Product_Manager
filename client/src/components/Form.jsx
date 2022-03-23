@@ -22,6 +22,7 @@ const Form = (props) =>{
             setTitle("")
             setPrice("")
             setDescription("")
+            setValidations({})
             }
         })
         .catch(err=>{

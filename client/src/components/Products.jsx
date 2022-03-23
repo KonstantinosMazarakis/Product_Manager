@@ -16,7 +16,20 @@ const Products = (props) => {
                 console.log("error 404... no API found." + err)
             })
 
-    }, [props.formSubmited])
+    }, [props.formSubmited,report])
+
+    const deleteProduct = (id) =>{
+        axios.delete(`http://localhost:8000/api/products/${id}`)
+                .then(res=>{
+                    let filteredList = report.filter((productsObj)=>{
+                        return productsObj._id != id
+                    })
+                })
+                .catch(err=>{
+                    console.log("error 404... no API found." + err)
+                })
+        
+    }
 
     return (
         <div>
@@ -26,6 +39,7 @@ const Products = (props) => {
                     return (
                         <div key={productObj._id}>
                             <h3><Link to={`/details/${productObj._id}`}>{productObj.title}</Link></h3>
+                            <button onClick={()=>{deleteProduct(productObj._id)}} className='btn btn-danger mb-4'>Delete</button>
                         </div>
                     )
                 })
